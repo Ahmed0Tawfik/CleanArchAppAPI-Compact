@@ -1,5 +1,5 @@
 ﻿using CleanArch.Application;
-using CleanArch.Application.Auth;
+using CleanArch.Application.Features.Auth.Commands;
 using CleanArch.Application.RequestHandlingService;
 using FluentValidation;
 

@@ -1,11 +1,13 @@
-﻿using CleanArch.Application.APIResponse;
+﻿using CleanArch.Application.Common.APIResponse;
+using CleanArch.Application.Common.Interfaces;
+using CleanArch.Application.Features.Auth.Models;
 using CleanArch.Application.Interfaces.Authentication;
 using FluentValidation;
 
-namespace CleanArch.Application.Auth
+namespace CleanArch.Application.Features.Auth.Commands
 {
 
-    public record UserRegisterCommand(string Email,string UserName, string Password, string ConfirmPassword) : IRequest<ApiResponse<AuthResponse>>
+    public record UserRegisterCommand(string Email, string UserName, string Password, string ConfirmPassword) : IRequest<ApiResponse<AuthResponse>>
     {
         public class Validator : AbstractValidator<UserRegisterCommand>
         {
@@ -32,7 +34,7 @@ namespace CleanArch.Application.Auth
     }
 
     public class UserRegisterHandler(IAuthService authService) : IRequestHandler<UserRegisterCommand, ApiResponse<AuthResponse>>
-    {  
+    {
         public async Task<ApiResponse<AuthResponse>> Handle(UserRegisterCommand request, CancellationToken ct)
         {
             var result = await authService.RegisterAsync(request);

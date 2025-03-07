@@ -1,5 +1,5 @@
 ﻿using CleanArch.Application.RequestHandlingService;
-using CleanArch.Application;
+using CleanArch.Application.Common.Interfaces;
 
 namespace CleanArch.API.DependencyInjection
 {

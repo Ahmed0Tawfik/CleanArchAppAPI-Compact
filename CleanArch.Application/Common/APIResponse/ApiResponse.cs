@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace CleanArch.Application.APIResponse
+namespace CleanArch.Application.Common.APIResponse
 {
     public class ApiResponse<T>
     {
@@ -12,7 +12,7 @@ namespace CleanArch.Application.APIResponse
         public HttpStatusCode StatusCode { get; set; } // HTTP status code
 
         //  Success response constructor
-        public static ApiResponse<T> Success(T payload,string message = "Operation Success", HttpStatusCode statusCode = HttpStatusCode.OK)
+        public static ApiResponse<T> Success(T payload, string message = "Operation Success", HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             return new ApiResponse<T>
             {
@@ -37,6 +37,6 @@ namespace CleanArch.Application.APIResponse
             };
         }
 
-        
+
     }
 }

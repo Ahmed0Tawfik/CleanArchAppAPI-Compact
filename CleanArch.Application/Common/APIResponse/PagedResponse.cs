@@ -1,4 +1,4 @@
-﻿namespace CleanArch.Application.APIResponse
+﻿namespace CleanArch.Application.Common.APIResponse
 {
     public class PagedResponse<T>
     {

@@ -1,8 +1,10 @@
-﻿using CleanArch.Application.APIResponse;
+﻿using CleanArch.Application.Common.APIResponse;
+using CleanArch.Application.Common.Interfaces;
+using CleanArch.Application.Features.Auth.Models;
 using CleanArch.Application.Interfaces.Authentication;
 using FluentValidation;
 
-namespace CleanArch.Application.Auth
+namespace CleanArch.Application.Features.Auth.Commands
 {
     public record UserLoginCommand(string Email, string Password) : IRequest<ApiResponse<AuthResponse>>
     {
@@ -22,7 +24,7 @@ namespace CleanArch.Application.Auth
     {
         public async Task<ApiResponse<AuthResponse>> Handle(UserLoginCommand request, CancellationToken ct)
         {
-            var result  = await authService.LoginAsync(request);
+            var result = await authService.LoginAsync(request);
             return ApiResponse<AuthResponse>.Success(result, "Logged On Successfully");
         }
     }

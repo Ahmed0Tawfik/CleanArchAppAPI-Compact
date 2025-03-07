@@ -1,9 +1,11 @@
-﻿using CleanArch.Application.APIResponse;
+﻿using CleanArch.Application.Common.APIResponse;
+using CleanArch.Application.Common.Interfaces;
+using CleanArch.Application.Features.ProductCQ.Models;
 using CleanArch.Domain.Interfaces;
 using CleanArch.Domain.Models;
 using FluentValidation;
 
-namespace CleanArch.Application.ProductCQ
+namespace CleanArch.Application.Features.ProductCQ.Commands
 {
     public class DeleteProductCommnad : IRequest<ApiResponse<ProductResponse>>
     {

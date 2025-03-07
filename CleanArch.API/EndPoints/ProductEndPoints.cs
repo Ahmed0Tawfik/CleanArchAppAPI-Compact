@@ -1,7 +1,6 @@
 ﻿using CleanArch.Application;
-using CleanArch.Application.APIResponse;
-using CleanArch.Application.Auth;
-using CleanArch.Application.ProductCQ;
+using CleanArch.Application.Features.ProductCQ.Commands;
+using CleanArch.Application.Features.ProductCQ.Queries;
 using CleanArch.Application.RequestHandlingService;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;

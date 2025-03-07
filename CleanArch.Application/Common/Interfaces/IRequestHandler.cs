@@ -1,4 +1,4 @@
-﻿namespace CleanArch.Application
+﻿namespace CleanArch.Application.Common.Interfaces
 {
     public interface IRequestHandler<TRequest, TResponse>
     where TRequest : IRequest<TResponse>  // Constrain the REQUEST type

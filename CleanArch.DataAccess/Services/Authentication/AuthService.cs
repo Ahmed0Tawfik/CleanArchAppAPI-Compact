@@ -1,7 +1,6 @@
-﻿
-using CleanArch.Application.Auth;
+﻿using CleanArch.Application.Features.Auth.Commands;
+using CleanArch.Application.Features.Auth.Models;
 using CleanArch.Application.Interfaces.Authentication;
-using CleanArch.Application.Models.Auth;
 using CleanArch.Domain.Exceptions;
 using CleanArch.Domain.Exceptions.AuthExceptions;
 using CleanArch.Infrastructure.Context;

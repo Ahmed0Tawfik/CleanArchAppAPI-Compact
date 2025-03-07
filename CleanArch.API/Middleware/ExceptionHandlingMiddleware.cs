@@ -1,4 +1,4 @@
-﻿using CleanArch.Application.APIResponse;
+﻿using CleanArch.Application.Common.APIResponse;
 using CleanArch.Domain.Exceptions.AuthExceptions;
 using CleanArch.Domain.Exceptions.RateLimitingExceptions;
 using FluentValidation;

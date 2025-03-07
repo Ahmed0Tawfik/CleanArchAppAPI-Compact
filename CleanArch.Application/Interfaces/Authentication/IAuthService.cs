@@ -1,6 +1,5 @@
-﻿
-using CleanArch.Application.Auth;
-using CleanArch.Application.Models.Auth;
+﻿using CleanArch.Application.Features.Auth.Commands;
+using CleanArch.Application.Features.Auth.Models;
 
 namespace CleanArch.Application.Interfaces.Authentication
 {

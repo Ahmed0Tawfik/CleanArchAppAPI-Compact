@@ -1,4 +1,6 @@
-﻿namespace CleanArch.Application.RequestHandlingService
+﻿using CleanArch.Application.Common.Interfaces;
+
+namespace CleanArch.Application.RequestHandlingService
 {
     public interface IRequestSender
     {

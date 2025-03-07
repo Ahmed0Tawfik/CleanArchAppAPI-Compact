@@ -1,11 +1,13 @@
-﻿using CleanArch.Application.APIResponse;
-using CleanArch.Domain.Interfaces;
+﻿using CleanArch.Domain.Interfaces;
 using FluentValidation;
 using CleanArch.Domain.Models;
+using CleanArch.Application.Features.ProductCQ.Models;
+using CleanArch.Application.Common.Interfaces;
+using CleanArch.Application.Common.APIResponse;
 
-namespace CleanArch.Application.ProductCQ
+namespace CleanArch.Application.Features.ProductCQ.Commands
 {
-    public record AddProductCommand(string Name, string Description,string imageUrl, decimal Price, bool IsNew) : IRequest<ApiResponse<ProductResponse>>
+    public record AddProductCommand(string Name, string Description, string imageUrl, decimal Price, bool IsNew) : IRequest<ApiResponse<ProductResponse>>
     {
         public class Validator : AbstractValidator<AddProductCommand>
         {
@@ -42,7 +44,7 @@ namespace CleanArch.Application.ProductCQ
                     InStock = true,
                     ImageUrl = request.imageUrl,
                     IsNew = request.IsNew
-                };  
+                };
 
 
                 var result = await _unitOfWork.Repository<Product>().AddAsync(newproduct);

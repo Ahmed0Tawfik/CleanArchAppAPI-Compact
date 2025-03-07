@@ -1,4 +1,4 @@
-﻿namespace CleanArch.Application.Models.Auth
+﻿namespace CleanArch.Application.Features.Auth.Models
 {
     public class TokenResponse
     {

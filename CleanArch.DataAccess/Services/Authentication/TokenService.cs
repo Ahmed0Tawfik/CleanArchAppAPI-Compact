@@ -1,5 +1,5 @@
-﻿using CleanArch.Application.Interfaces.Authentication;
-using CleanArch.Application.Models.Auth;
+﻿using CleanArch.Application.Features.Auth.Models;
+using CleanArch.Application.Interfaces.Authentication;
 using CleanArch.Domain;
 using CleanArch.Infrastructure.Context;
 using CleanArch.Infrastructure.Identity.Models;

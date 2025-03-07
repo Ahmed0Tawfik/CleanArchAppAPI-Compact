@@ -1,4 +1,4 @@
-﻿using CleanArch.Application.Models.Auth;
+﻿using CleanArch.Application.Features.Auth.Models;
 using System.Security.Claims;
 
 namespace CleanArch.Application.Interfaces.Authentication

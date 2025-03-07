@@ -1,10 +1,12 @@
-﻿using CleanArch.Application.APIResponse;
+﻿using CleanArch.Application.Common.APIResponse;
+using CleanArch.Application.Common.Interfaces;
+using CleanArch.Application.Features.ProductCQ.Models;
 using CleanArch.Domain.Interfaces;
 using CleanArch.Domain.Models;
 using FluentValidation;
 using System.Linq;
 
-namespace CleanArch.Application.ProductCQ
+namespace CleanArch.Application.Features.ProductCQ.Queries
 {
     public class GetAllProductsRequest() : IRequest<ApiResponse<PagedResponse<ProductResponse>>>
     {
@@ -42,7 +44,7 @@ namespace CleanArch.Application.ProductCQ
             var pagedProducts = await _unitOfWork.Repository<Product>().GetPagedAsync(request.Search, page, pageSize, request.InStock, request.IsNew);
             var Records = await _unitOfWork.Repository<Product>().GetAllAsync();
 
-            if (pagedProducts.Data is null || !pagedProducts.Data.Any()) 
+            if (pagedProducts.Data is null || !pagedProducts.Data.Any())
             {
                 return ApiResponse<PagedResponse<ProductResponse>>.Error(null, "No products found");
             }
@@ -66,9 +68,9 @@ namespace CleanArch.Application.ProductCQ
             return ApiResponse<PagedResponse<ProductResponse>>.Success(pagedResponse);
         }
 
-         
 
-        
+
+
 
     }
 }

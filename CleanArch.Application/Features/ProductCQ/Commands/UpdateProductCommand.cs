@@ -1,9 +1,11 @@
-﻿using CleanArch.Application.APIResponse;
+﻿using CleanArch.Application.Common.APIResponse;
+using CleanArch.Application.Common.Interfaces;
+using CleanArch.Application.Features.ProductCQ.Models;
 using CleanArch.Domain.Interfaces;
 using CleanArch.Domain.Models;
 using FluentValidation;
 
-namespace CleanArch.Application.ProductCQ
+namespace CleanArch.Application.Features.ProductCQ.Commands
 {
     public record UpdateProductCommand(Guid Id, string Name, string Description, string ImageUrl, decimal Price) : IRequest<ApiResponse<ProductResponse>>
     {
@@ -17,7 +19,7 @@ namespace CleanArch.Application.ProductCQ
                     .NotEmpty().WithMessage("Description is required.");
                 RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0.");
                 RuleFor(x => x.ImageUrl).MaximumLength(256).WithMessage("ImageUrl must not exceed 256 characters.")
-                    .NotEmpty().WithMessage("ImageUrl is required.");    
+                    .NotEmpty().WithMessage("ImageUrl is required.");
             }
         }
     }
