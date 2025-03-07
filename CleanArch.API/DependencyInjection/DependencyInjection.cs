@@ -51,5 +51,11 @@ namespace CleanArch.API.DependencyInjection
 
 
         }
+
+        public static IServiceCollection ConfigureRateLimiter(this IServiceCollection services)
+        {
+            services.AddRateLimiter();
+            return services;
+        }
     }
 }

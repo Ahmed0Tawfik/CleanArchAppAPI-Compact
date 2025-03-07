@@ -3,6 +3,7 @@ using CleanArch.Application.Auth;
 using CleanArch.Application.Interfaces.Authentication;
 using CleanArch.Application.Models.Auth;
 using CleanArch.Domain.Exceptions;
+using CleanArch.Domain.Exceptions.AuthExceptions;
 using CleanArch.Infrastructure.Context;
 using CleanArch.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;

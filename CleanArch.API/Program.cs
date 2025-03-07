@@ -37,8 +37,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // MIDDLEWARE
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseMiddleware<ValidationMiddleware>();
+app.UseExceptionHandling();
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,6 @@
 ﻿using CleanArch.Application.APIResponse;
+using CleanArch.Domain.Exceptions.AuthExceptions;
+using CleanArch.Domain.Exceptions.RateLimitingExceptions;
 using FluentValidation;
 using System.Net;
 using System.Text.Json;
@@ -20,35 +22,74 @@ namespace CleanArch.API.Middleware
             {
                 await _next(context);
             }
-            catch (ValidationException ex) // FluentValidation exceptions
+            catch (Exception ex)
             {
-                await HandleValidationExceptionAsync(context, ex);
-            }
-            catch (Exception ex) // All other exceptions
-            {
-                await HandleGenericExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, ex);
             }
         }
 
-        private static Task HandleValidationExceptionAsync(HttpContext context, ValidationException ex)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var errors = ex.Errors.Select(err => new { err.PropertyName, err.ErrorMessage });
+            var statusCode = GetStatusCode(exception);
+            var response = CreateErrorResponse(exception, statusCode);
 
-            var response = ApiResponse<List<object>>.Error(errors, "Validation failed", HttpStatusCode.BadRequest);
-            return WriteResponseAsync(context, HttpStatusCode.BadRequest, response);
+            await WriteResponseAsync(context, statusCode, response);
         }
 
-        private static Task HandleGenericExceptionAsync(HttpContext context, Exception ex)
+        private static HttpStatusCode GetStatusCode(Exception exception)
         {
-            var response = ApiResponse<string>.Error(new List<object> { ex.Message }, "An unexpected error occurred", HttpStatusCode.InternalServerError);
-            return WriteResponseAsync(context, HttpStatusCode.InternalServerError, response);
+            return exception switch
+            {
+                ValidationException => HttpStatusCode.BadRequest,
+                AbstractRateLimitingException => HttpStatusCode.TooManyRequests,
+                AbstractAuthException => HttpStatusCode.Unauthorized,
+                _ => HttpStatusCode.InternalServerError
+            };
+        }
+
+        private static object CreateErrorResponse(Exception exception, HttpStatusCode statusCode)
+        {
+            return exception switch
+            {
+                ValidationException validationException =>
+                    ApiResponse<List<object>>.Error(
+                        validationException.Errors.Select(err => new { err.PropertyName, err.ErrorMessage }).ToList(),
+                        "Validation failed",
+                        statusCode),
+
+                _ => ApiResponse<string>.Error(
+                    new List<object> { exception.Message },
+                    GetDefaultErrorMessage(statusCode),
+                    statusCode)
+            };
+        }
+
+        private static string GetDefaultErrorMessage(HttpStatusCode statusCode)
+        {
+            return statusCode switch
+            {
+                HttpStatusCode.BadRequest => "Invalid request",
+                HttpStatusCode.Unauthorized => "Authentication required",
+                HttpStatusCode.TooManyRequests => "Rate limit exceeded",
+                _ => "An unexpected error occurred"
+            };
         }
 
         private static Task WriteResponseAsync(HttpContext context, HttpStatusCode statusCode, object response)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
-            return context.Response.WriteAsync(JsonSerializer.Serialize(response));
+
+            return context.Response.WriteAsJsonAsync(response);
+        }
+    }
+
+    // Extension method for cleaner registration in program.cs
+    public static class ExceptionMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ExceptionHandlingMiddleware>();
         }
     }
 }
