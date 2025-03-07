@@ -23,6 +23,7 @@ namespace CleanArch.API.EndPoints
                 await validator.ValidateAndThrowAsync(request, ct);
                 return await handler.Send(request, ct);
             })
+            .RequireRateLimiting("sliding")
             .WithSummary("Login User");
 
 
@@ -35,7 +36,8 @@ namespace CleanArch.API.EndPoints
                 await validator.ValidateAndThrowAsync(request, ct);
                 return await handler.Send(request, ct);
             })
-             .WithSummary("Register User");
+            .RequireRateLimiting("sliding")
+            .WithSummary("Register User");
         }
     }
 }
