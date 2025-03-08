@@ -32,7 +32,3 @@ Hi everyone! I’m thrilled to share the newest enhancements to my **.NET Clean 
 
 This update prioritizes **simplicity**, **performance**, and **developer joy**, making it perfect for microservices, APIs, or rapid prototyping. Clone, star, or contribute — let’s build smarter!  
 
-👉 **GitHub Repo**: [Your Repo Link]  
-
----  
-*Changelog: Smaller footprint, faster startup, and Minimal API magic!* 💫
