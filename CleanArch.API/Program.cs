@@ -4,6 +4,7 @@ using CleanArch.API.Middleware;
 using CleanArch.Infrastructure.DependencyInjection;
 using Scalar.AspNetCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -34,6 +35,10 @@ builder.Services.ConfigureCors();
 // ADDING RATE LIMITING
 builder.Services.AddRateLimiting(builder.Configuration);
 
+// ADDING SERILOG
+builder.Services.AddLoggingServices(builder.Configuration);
+
+
 var app = builder.Build();
 
 
@@ -54,8 +59,10 @@ if (app.Environment.IsDevelopment())
 // GLOBAL EXCEPTION HANDLING MIDDLEWARE
 app.UseExceptionHandling();
 
-
 app.UseHttpsRedirection();
+
+// REQUEST RESPONSE LOGGING MIDDLEWARE
+app.UseRequestResponseLogging();
 
 // ADDING RATE LIMITING MIDDLEWARE
 app.UseRateLimiter();
