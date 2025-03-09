@@ -1,0 +1,16 @@
+{
+  "$shcema": "http://json.schemastore.org/template",
+  "author": "Ahmed Tawfik",
+  "classifications": [ "WEB", "API", "CleanArch" ],
+  "identity": "Toffi.CleanArch.Template",
+  "name": "Clean Architecture Template",
+  "description": "A Compact ReadyToUse CleanArch Template",
+  "version": "1.0.0",
+  "license": "MIT",
+  "shortName": "tofficleanarch",
+  "sourceName": "CleanArch",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  }
+}
